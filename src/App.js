@@ -1,5 +1,5 @@
 import React from "react";
-
+import axios from "axios";
 function App() {
   const [state, setState] = React.useState({
     email: "",
@@ -12,6 +12,12 @@ function App() {
 
   const onSubmit = e => {
     e.preventDefault();
+    axios.defaults.withCredentials = true;
+    axios.get("http://localhost:8000/sanctum/csrf-cookie").then(response => {
+      axios.post("http://localhost:8000/login", state).then(res => {
+        console.log(res.data);
+      });
+    });
   };
 
   return (
