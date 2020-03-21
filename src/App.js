@@ -13,11 +13,15 @@ function App() {
   const onSubmit = e => {
     e.preventDefault();
     axios.defaults.withCredentials = true;
-    axios.get("http://localhost:8000/sanctum/csrf-cookie").then(response => {
-      axios.post("http://localhost:8000/login", state).then(res => {
-        console.log(res.data);
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`)
+      .then(response => {
+        axios
+          .post(`${process.env.REACT_APP_API_URL}/login`, state)
+          .then(res => {
+            console.log(res.data);
+          });
       });
-    });
   };
 
   return (
